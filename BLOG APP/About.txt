@@ -1,0 +1,6 @@
+BLOG APP
+. creating post
+. fetching posts
+. commenting on posts
+. liking posts
+. unlike posts
