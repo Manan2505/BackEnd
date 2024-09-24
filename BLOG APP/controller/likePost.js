@@ -1,17 +1,17 @@
 const postModel=require('../models/postSchema');
-const commentModel =require('../models/commentSchema')
+const likeModel =require('../models/likeSchema')
 
-exports.addComment=async(req,res)=>{
+exports.likePost=async(req,res)=>{
     try{
-    const {post,user,body}=req.body;
-    const recentComment=await commentModel.create({post,user,body});
-    const updatedPost= await postModel.findByIdAndUpdate(post,{$push:{comments:recentComment._id}},{new:true})
-                            .populate("comments")
+    const {post,user}=req.body;
+    const recentLike=await likeModel.create({post,user});
+    const updatedPost= await postModel.findByIdAndUpdate(post,{$push:{likes:recentLike._id}},{new:true})
+                            .populate("likes")
                         .exec();
     //populate means getting the document/post related to that id
     res.status(200).json({
         success:true,
-        message:"Comment added successfully",
+        message:"like added successfully",
         post:updatedPost
 
     })
