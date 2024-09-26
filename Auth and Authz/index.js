@@ -9,7 +9,7 @@ app.listen(PORT,()=>console.log(`server running at port no. ${PORT}`));
 
 //database connectivity
 dbConnect();
-//default route
+//default rout
 app.get('/',(req,res)=>{
     res.send('this is my home page');
 });

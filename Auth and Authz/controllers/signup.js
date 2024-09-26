@@ -2,7 +2,7 @@ const userSchema=require('../models/User');
 const bcrypt=require('bcrypt');
 exports.signup=async(req,res)=>{
     try{
-        const {name,email,password}=req.body;
+        const {name,email,role,password}=req.body;
         // checking existing emails
         let checkEmail=await userSchema.findOne({email});
         if(checkEmail){
@@ -17,10 +17,15 @@ exports.signup=async(req,res)=>{
             return res.send("Enter valid email");
         }
         // hashing password
-        let hashedPassword=await bcrypt.hash(password,10);
+        let hashedPassword;
+        try{
+         hashedPassword=await bcrypt.hash(password,10);
+        }catch(error){
+            return res.send("Error in hashing password ->"+error.message);
+        }
 
         //creating entry in db
-        const updateUser=await userSchema.create({name,email,password:hashedPassword});
+        const updateUser=await userSchema.create({name,email,role,password:hashedPassword});
         //sending acknowledgement
         res.status(200).json({
             success:true,
