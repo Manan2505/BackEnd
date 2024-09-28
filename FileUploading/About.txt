@@ -1,0 +1,5 @@
+// things we learnt in file uplaoding week
+
+1. store images, videos on cloudinary, local server storage
+2. reducing the size of image and videos
+3. sending mails after successful images, videos upload
