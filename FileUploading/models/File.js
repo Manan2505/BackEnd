@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-
+const nodemailer=require('../config/nodemailer');
 const file=new mongoose.Schema({
     name:{
         type:String,
@@ -14,6 +14,10 @@ const file=new mongoose.Schema({
     email:{
         type:String
     }
+})
+
+file.post('save',async(doc)=>{
+    nodemailer(doc);
 })
 
 module.exports=mongoose.model("fileSchema",file);

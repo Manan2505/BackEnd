@@ -1,5 +1,7 @@
 const fileSchema=require('../models/File');
 const cloudinary=require('cloudinary').v2;
+
+
 exports.localFileUpload=async(req,res)=>{
     try{
         //fetching file using following syntax
@@ -26,18 +28,19 @@ exports.localFileUpload=async(req,res)=>{
     }
 }
 
-//image uploading to cloudinary
 function isFileTypeSupported(currentFileType,supportedTypes){
     return supportedTypes.includes(currentFileType);
 }
-async function uploadToCloudinary(file, folder) {
+async function uploadToCloudinary(file, folder,quality) {
     const options = { folder };
     options.resource_type="auto";
+    options.quality=quality
     console.log("Temp file path for upload:", file.tempFilePath);
 
     // Call Cloudinary's upload API
     return await cloudinary.uploader.upload(file.tempFilePath, options);
 }
+
 exports.imageUpload=async(req,res)=>{
     try{
         //fetch data from req body
@@ -74,6 +77,7 @@ exports.imageUpload=async(req,res)=>{
     }
 }
 
+
 exports.videoUpload=async(req,res)=>{
     try{
         //fetch data from req body
@@ -108,19 +112,6 @@ exports.videoUpload=async(req,res)=>{
         })
 
     }
-}
-
-function isFileTypeSupported(currentFileType,supportedTypes){
-    return supportedTypes.includes(currentFileType);
-}
-async function uploadToCloudinary(file, folder,quality) {
-    const options = { folder };
-    options.resource_type="auto";
-    options.quality=quality
-    console.log("Temp file path for upload:", file.tempFilePath);
-
-    // Call Cloudinary's upload API
-    return await cloudinary.uploader.upload(file.tempFilePath, options);
 }
 
 
