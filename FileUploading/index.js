@@ -3,8 +3,12 @@ const app=express();
 app.use(express.json()); //middleware to parse data from req.body
 require('dotenv').config();
 // express-fileupload middleware for storing data locally
-const fileupload=require('express-fileupload');
-app.use(fileupload());
+const fileUpload = require('express-fileupload');
+
+app.use(fileUpload({
+    useTempFiles: true,   // This enables temporary files
+    tempFileDir: '/tmp/'  // Path for temporary files (optional, only if you want to set a specific path)
+}));
 
 const PORT=process.env.PORT;
 app.listen(PORT,()=>{

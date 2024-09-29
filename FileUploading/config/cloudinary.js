@@ -7,7 +7,7 @@ const cloudConnect=async(req,res)=>{
             api_key:process.env.API_KEY,
             api_secret:process.env.API_SECRET
         })
-
+        console.log('cloudinary connection successful')
     }catch(error){
         console.log('cloudinary connection failed '+error.message)
     }
